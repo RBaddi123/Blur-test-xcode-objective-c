@@ -1,0 +1,47 @@
+//
+//  ViewController.m
+//  BlurTest
+//
+//  Created by Michael Mooney on 28/09/2014.
+//  Copyright (c) 2014 Hyphen. All rights reserved.
+//
+
+#import "ViewController.h"
+
+@interface ViewController ()
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self Blur:BackGround];
+    // Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)Blur:(UIView *)view {
+    UIView *blurView = nil;
+    
+    if([UIBlurEffect class]) {
+        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]; //Can do dark, light or extra light here
+        blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        blurView.frame = view.frame;
+        
+    } else {
+        blurView = [[UIToolbar alloc] initWithFrame:view.bounds];
+    }
+    
+    [blurView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    [view addSubview:blurView];
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[blurView]|" options:0 metrics:0 views:NSDictionaryOfVariableBindings(blurView)]];
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[blurView]|" options:0 metrics:0 views:NSDictionaryOfVariableBindings(blurView)]];
+}
+
+@end
